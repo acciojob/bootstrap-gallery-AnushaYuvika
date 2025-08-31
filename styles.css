@@ -8,6 +8,6 @@ h2 {
 }
 
 .card img {
-  height: 200px;            /* sabhi images same height */
-  object-fit: cover;        /* image cut ho ke fit ho jayegi */
+  height: 200px;           
+  object-fit: cover;       
 }
