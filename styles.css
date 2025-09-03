@@ -3,11 +3,28 @@ h2 {
 	text-align: center;
 	padding-top: 20px
 }
+
 .card {
-	height: 100%;
+	width: 300px;         
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 8px;
+	overflow: hidden;
+	margin: 10px;
 }
 
 .card img {
-  height: 200px;           
-  object-fit: cover;       
+  flex: 1;              
+  object-fit: cover;    
+  width: 100%; 
+}
+
+.card-body {
+  height: 40%;          
+  text-align: center;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
