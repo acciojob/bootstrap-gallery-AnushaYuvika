@@ -1,9 +1,333 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cards Gallery</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+  .card {
+    border-radius: 0.75rem;
+  }
+  .card-title, .card-text {
+    text-align: center;
+  }
+  .gallery-img {
+    cursor: pointer;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1200;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.active {
+    display: flex;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 0.75rem;
+  }
+  .lightbox .close-btn, .lightbox .nav-arrow {
+    position: fixed;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1300;
+    background: rgba(0,0,0,0.4);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+  }
+  .lightbox .close-btn {
+    top: 1rem;
+    right: 1rem;
+  }
+  .lightbox .prev-arrow {
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+  }
+  .lightbox .next-arrow {
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
+</style>
+</head>
+<body>
+<div class="container my-4">
+  <h2 class="mb-4 text-center">Cards Gallery</h2>
+  <div class="row g-3">
+    <!-- 6 cards -->
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image1.jpg" alt="Image 1" class="img-fluid gallery-img" data-index="0" />
+        <div class="card-body">
+          <h6 class="card-title">Description 1</h6>
+          <p class="card-text">Details about image 1.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image2.jpg" alt="Image 2" class="img-fluid gallery-img" data-index="1" />
+        <div class="card-body">
+          <h6 class="card-title">Description 2</h6>
+          <p class="card-text">Details about image 2.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image3.jpg" alt="Image 3" class="img-fluid gallery-img" data-index="2" />
+        <div class="card-body">
+          <h6 class="card-title">Description 3</h6>
+          <p class="card-text">Details about image 3.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image4.jpg" alt="Image 4" class="img-fluid gallery-img" data-index="3" />
+        <div class="card-body">
+          <h6 class="card-title">Description 4</h6>
+          <p class="card-text">Details about image 4.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image5.jpg" alt="Image 5" class="img-fluid gallery-img" data-index="4" />
+        <div class="card-body">
+          <h6 class="card-title">Description 5</h6>
+          <p class="card-text">Details about image 5.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card">
+        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image6.jpg" alt="Image 6" class="img-fluid gallery-img" data-index="5" />
+        <div class="card-body">
+          <h6 class="card-title">Description 6</h6>
+          <p class="card-text">Details about image 6.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6 lightboxes without images initially -->
+<div id="lightbox-container">
+  <div class="lightbox" id="lightbox-0" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 1">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <!-- image inserted dynamically -->
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+  <div class="lightbox" id="lightbox-1" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 2">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+  <div class="lightbox" id="lightbox-2" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 3">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+  <div class="lightbox" id="lightbox-3" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 4">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+  <div class="lightbox" id="lightbox-4" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 5">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+  <div class="lightbox" id="lightbox-5" tabindex="0" aria-modal="true" role="dialog" aria-label="Lightbox 6">
+    <span class="close-btn" title="Close">&times;</span>
+    <span class="nav-arrow prev-arrow" title="Previous">&#10094;</span>
+    <span class="nav-arrow next-arrow" title="Next">&#10095;</span>
+  </div>
+</div>
+
+<script>
+  const images = [
+    'https://storage.googleapis.com/acciojob-open-file-collections/image1.jpg',
+    'https://storage.googleapis.com/acciojob-open-file-collections/image2.jpg',
+    'https://storage.googleapis.com/acciojob-open-file-collections/image3.jpg',
+    'https://storage.googleapis.com/acciojob-open-file-collections/image4.jpg',
+    'https://storage.googleapis.com/acciojob-open-file-collections/image5.jpg',
+    'https://storage.googleapis.com/acciojob-open-file-collections/image6.jpg'
+  ];
+  const total = images.length;
+
+  function insertImage(lightbox, index) {
+    const oldImg = lightbox.querySelector('img');
+    if (oldImg) oldImg.remove();
+    const img = document.createElement('img');
+    img.src = images[index];
+    img.alt = Image ${index+1};
+    const nextArrow = lightbox.querySelector('.next-arrow');
+    lightbox.insertBefore(img, nextArrow);
+  }
+
+  function openLightbox(index) {
+    closeAll();
+    const lb = document.getElementById(lightbox-${index});
+    if (lb) {
+      insertImage(lb, index);
+      lb.classList.add('active');
+      lb.focus();
+    }
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.lightbox.active').forEach(lb => {
+      lb.classList.remove('active');
+      const img = lb.querySelector('img');
+      if(img) img.remove();
+    });
+  }
+
+  document.querySelectorAll('.gallery-img').forEach((img, idx) => {
+    img.addEventListener('click', () => openLightbox(idx));
+  });
+
+  document.querySelectorAll('.lightbox').forEach((lb, idx) => {
+    lb.querySelector('.close-btn').addEventListener('click', closeAll);
+
+    lb.addEventListener('click', e => {
+      if (e.target === lb) closeAll();
+    });
+
+    lb.querySelector('.prev-arrow').addEventListener('click', e => {
+      e.stopPropagation();
+      const prev = (idx - 1 + total) % total;
+      openLightbox(prev);
+    });
+
+    lb.querySelector('.next-arrow').addEventListener('click', e => {
+      e.stopPropagation();
+      const next = (idx + 1) % total;
+      openLightbox(next);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAll();
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html> 
 <html> 
-	<head>
-		<link rel="stylesheet" href="styles.css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-	</head> 
-	<body> 
-		<div class="container"> <h2>Cards Gallery</h2>
-			<div class="row justify-content-center d-flex flex-wrap"> <div class="card-group"> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image1.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional.</p> </div> </div> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image2.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> </div> </div> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image3.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p> </div> </div> </div> <div class="card-group "> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image4.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This is a wider card with supporting text below as a natural lead-in to.</p> </div> </div> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image5.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> </div> </div> <div class="card lightbox"> <img src="https://storage.googleapis.com/acciojob-open-file-collections/image6.jpg" class="card-img-top" alt="..."> <div class="card-body"> <h6 class="card-title">Card title</h6> <p class="card-text">This is a wider card with supporting card has even .</p> </div> </div> </div> </div> </div> <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true"> <div class="modal-dialog modal-dialog-centered modal-lg"> <div class="modal-content bg-transparent border-0"> <img id="lightboxImage" src="" class="img-fluid rounded"> </div> </div> </div> <script type="text/javascript" src="./script.js"> </script> </body> </html>
+<head>
+	<link rel="stylesheet" href="styles.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
+</head> 
+<body> 
+	<div class="container">
+	  <h2>Cards Gallery</h2>
+	  <div class="row justify-content-center d-flex flex-wrap">
+
+	    <div class="card-group">
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image1.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal">
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This is a wider card with supporting text below as a natural lead-in to additional.
+	          </p>
+	        </div>
+	      </div>
+
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image2.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal" >
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This card has supporting text below as a natural lead-in to additional content.
+	          </p>
+	        </div>
+	      </div>
+
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image3.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal" >
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This is a wider card with supporting text below as a natural lead-in to additional content.
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+
+	    <div class="card-group">
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image4.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal" >
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This is a wider card with supporting text below as a natural lead-in to.
+	          </p>
+	        </div>
+	      </div>
+
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image5.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal" >
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This card has supporting text below as a natural lead-in to additional content.
+	          </p>
+	        </div>
+	      </div>
+
+	      <div class="card lightbox">
+	        <img src="https://storage.googleapis.com/acciojob-open-file-collections/image6.jpg" class="card-img-top" alt="..."
+				data-bs-toggle="modal" data-bs-target="#lightboxModal" >
+	        <div class="card-body">
+	          <h6 class="card-title">Card title</h6>
+	          <p class="card-text">
+	            This is a wider card with supporting card has even.
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <img id="lightboxImage" src="" class="img-fluid rounded">
+    </div>
+  </div>
+</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./script.js"></script>
+
+	 <script type="text/javascript" src="./script.js"> </script> 
+</body> 
+</html> -->
