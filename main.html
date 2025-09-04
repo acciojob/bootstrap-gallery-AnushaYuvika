@@ -173,14 +173,14 @@
     if (oldImg) oldImg.remove();
     const img = document.createElement('img');
     img.src = images[index];
-    img.alt = Image ${index+1};
+    img.alt = `Image ${index+1}`;
     const nextArrow = lightbox.querySelector('.next-arrow');
     lightbox.insertBefore(img, nextArrow);
   }
 
   function openLightbox(index) {
     closeAll();
-    const lb = document.getElementById(lightbox-${index});
+    const lb = document.getElementById(`lightbox-${index}`);
     if (lb) {
       insertImage(lb, index);
       lb.classList.add('active');
